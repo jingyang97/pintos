@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ######################################################
-# 
-# Setup OS lab tool chain (i386-elf-* cross compiler). 
+#
+# Setup OS lab tool chain (i386-elf-* cross compiler).
 #
 # Tested on Mac OS, Ubuntu and Fedora.
 #
@@ -23,7 +23,7 @@ download_and_check()
   local fdirname="${fname%.tar.*}"
   cd $CWD/src
   if [ ! -f $fname ]; then
-    wget $1 
+    wget $1
     if [ ! -f $fname ]; then
       perror "Failed to download $1"
     fi
@@ -36,7 +36,7 @@ download_and_check()
   if [ ! -d $fdirname ]; then
     echo "Extracting $fname to $fdirname..."
     if [ $fname == *.tar.gz ]; then
-      tar xzf $fname 
+      tar xzf $fname
     elif [ $fname == *.tar.bz2 ]; then
       tar xjf $fname
     elif [ $fname == *.tar.xz ]; then
@@ -52,26 +52,19 @@ download_and_check()
 usage()
 {
   cat <<EOF
-
   Usage: $0 [options] [DEST_DIR] [TOOL]
-
     -h, --help           Display this message
-
     -p, --prefix PATH    Install the executables to PATH, instead of the default
                          DEST_DIR/dist
-
     DEST_DIR             Base directory to store the downloeaded source code,
                          build and distribute the compiled toolchain.
-
     TOOL                 By default, this script build three targets: binutils,
                          GCC, and GDB. Specify a single target to download and build.
                          Must be one of {binutils, gcc, gdb}.
-
   Example:
     1. $0 /home/ryan/318/toolchain
     2. $0 /home/ryan/318/toolchain gcc
     3. $0 --prefix /usr/local /home/ryan/318/toolchain gdb
-
 EOF
 }
 
@@ -167,7 +160,7 @@ fi
 
 if [ $tool == "all" -o $tool == "gcc" ]; then
   echo "Building GCC..."
-  mkdir -p $CWD/build/gcc && cd $CWD/build/gcc 
+  mkdir -p $CWD/build/gcc && cd $CWD/build/gcc
   ../../src/gcc-6.2.0/configure CXXFLAGS="-fpermissive" --prefix=$PREFIX --target=$TARGET \
     --disable-multilib --disable-nls --disable-werror --disable-libssp \
     --disable-libmudflap --with-newlib --without-headers --enable-languages=c,c++ || perror "Failed to configure gcc"
@@ -179,7 +172,7 @@ fi
 
 if [ $tool == "all" -o $tool == "gdb" ]; then
   echo "Building gdb..."
-  mkdir -p $CWD/build/gdb && cd $CWD/build/gdb 
+  mkdir -p $CWD/build/gdb && cd $CWD/build/gdb
   ../../src/gdb-7.9.1/configure --prefix=$PREFIX --target=$TARGET --disable-werror || perror "Failed to configure gdb"
   make -j8 || perror "Failed to make gdb"
   make install
