@@ -8,10 +8,10 @@ Follow this [guide](https://www.cs.jhu.edu/~huang/cs318/fall20/project/setup.htm
 Tips:  
     * remember to downgrade XCode to at most version 11.3.1, otherwise you might have problems following the guide to setup the toolchain
 
-## Project 1: Threads
+## 1: Threads
 
-## Project 2: User Programs
+## 2: User Programs
 
-## Project 3: Virtual Memory
+## 3: Virtual Memory
 
-## Project 4: File Systems
+## 4: File Systems
