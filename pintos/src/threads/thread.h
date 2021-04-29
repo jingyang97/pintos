@@ -90,8 +90,15 @@ struct thread
     int priority;                       /* Priority. */
     struct list_elem allelem;           /* List element for all threads list. */
 
+    struct list_elem waitelem;          /* List element, stored in the wait_list queue */
+    int64_t sleep_endtick;              /* The tick after which the thread should awake (if the thread is in sleep)
+
     /* Shared between thread.c and synch.c. */
     struct list_elem elem;              /* List element. */
+
+    // needed for priority donations
+    struct lock *waiting_lock;          /* The lock object on which this thread is waiting (or NULL if not locked) */
+    struct list locks;                  /* List of locks the thread holds (for multiple donations) */
 
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
@@ -110,7 +117,7 @@ extern bool thread_mlfqs;
 void thread_init (void);
 void thread_start (void);
 
-void thread_tick (void);
+void thread_tick (int64_t tick);
 void thread_print_stats (void);
 
 typedef void thread_func (void *aux);
@@ -118,6 +125,8 @@ tid_t thread_create (const char *name, int priority, thread_func *, void *);
 
 void thread_block (void);
 void thread_unblock (struct thread *);
+
+void thread_sleep_until (int64_t wakeup_tick);
 
 struct thread *thread_current (void);
 tid_t thread_tid (void);
