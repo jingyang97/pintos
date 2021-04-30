@@ -15,16 +15,16 @@ download the release version for this branch at <https://github.com/jhu-cs318/pi
 
 ## Theads
 
-* [Design Document](./scr/threads/README.md)
+* [Design Document](./src/threads/README.md)
 
 ## User Programs
 
-* [Design Document](./scr/userprog/README.md)
+* [Design Document](./src/userprog/README.md)
 
 ## Virtual Memory
 
-* [Design Document](./scr/vm/README.md)
+* [Design Document](./src/vm/README.md)
 
 ## File System
 
-* [Design Document](./scr/filesys/README.md)
+* [Design Document](./src/filesys/README.md)
